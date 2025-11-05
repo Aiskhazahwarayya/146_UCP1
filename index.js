@@ -25,3 +25,12 @@ db.sequelize.sync()
     res.status(500).send({ message: error.message });
   }
 });
+
+app.get('/hotel', async (req, res) => {
+  try {
+    const hotel = await db.Tentrem.findAll();
+    res.send(hotel);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
