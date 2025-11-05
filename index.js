@@ -49,3 +49,17 @@ app.put('/hotel/:id', async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 });
+
+app.delete('/hotel/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const hotel = await db.Tentrem.findByPk(id);
+    if (!hotel) {
+      return res.status(404).send({ message: 'Data tidak ditemukan' });
+    }
+    await hotel.destroy();
+    res.send({ message: 'Data berhasil dihapus' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
