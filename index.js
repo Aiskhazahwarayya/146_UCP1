@@ -34,3 +34,18 @@ app.get('/hotel', async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 });
+
+app.put('/hotel/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  try {
+    const hotel = await db.Tentrem.findByPk(id); 
+    if (!hotel) {
+      return res.status(404).send({ message: 'Data tidak ditemukan' });
+    }
+    await hotel.update(data);
+    res.send({ message: "Data berhasil diupdate", hotel});
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
