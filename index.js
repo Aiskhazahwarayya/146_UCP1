@@ -15,3 +15,13 @@ db.sequelize.sync()
   .catch((err) => {
     console.log(err);
   });
+
+  app.post('/hotel', async (req, res) => {
+  const data = req.body;
+  try {
+    const hotel = await db.Tentrem.create(data); 
+    res.send(hotel);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
